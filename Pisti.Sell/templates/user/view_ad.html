@@ -1,0 +1,701 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="">
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">{% endblock %} -->
+{% block content %}
+<style>
+   
+ .buttons{
+   margin: 20px 10px 20px 10px;
+   display: block;
+   text-align: center;
+   font-weight: 500;
+   padding: 12px 20px 12px 20px;
+ }
+ 
+ a.flatbutt{
+    background: #e26c3d;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 90%;
+ }
+ 
+ a.raised{
+    background: #e26c3d;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 90%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+ }
+ 
+ a.flat-three-d {
+    background: #e26c3d;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 90%;
+ }
+ 
+ a.amzbutt {
+    background: #e26c3d;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 90%;
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.2);
+ }
+ 
+ a.spr-amz-butt {
+    background: -webkit-linear-gradient(#e26c3d,#d15b2c);
+    border-radius: 3px;
+    color: #eee;
+    font-size: 90%;
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2), inset 0px 2px 0px rgba(255, 255, 255, 0.2), 0px 2px 1px rgba(0, 0, 0, 0.2);  
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+ }
+ 
+ a.shadow-material {
+    background: #e26c3d;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 90%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+ }
+
+ .buttons.midnitghtblue{
+    background: #2c3e50;
+ }
+
+
+ 
+</style>
+<style>
+    
+.bbutton{
+    margin:.5rem;
+    width: 200px;
+    height:35px;
+    font-weight:100;
+    text-transform:uppercase;
+    color:#fff;
+    letter-spacing:.1rem;
+    border: none;
+    border-radius: 100px;
+    transition: .3s ease-in-out;
+  }
+  
+.report-button{
+    margin:.5rem;
+    width: 200px;
+    height:35px;
+    font-weight:100;
+    text-transform:uppercase;
+    color:#fff;
+    letter-spacing:.1rem;
+    border: none;
+    border-radius: 100px;
+    transition: .3s ease-in-out;
+}
+
+  .bbutton:focus{
+    outline: none;
+  }
+
+  .report-button{
+    background: rgb(208 60 41);
+  }
+  
+  .bbutton.accept{
+    background: rgb(208 60 41);
+  }
+  
+  .bbutton.accept:hover{
+    background:rgb(50,50,50,1.0);
+  }
+  
+  .report-button{
+    background:rgb(50,50,50,1.0);
+  }
+  
+  .bbutton:hover{
+    font-size: .8rem;
+    cursor:pointer;
+  }
+  .report-button{
+    font-size: .8rem;
+    cursor:pointer;
+  }
+
+
+  .popup{
+    position:absolute;
+    z-index:2;
+    width:20%;
+    transition: .5s ease-out;
+  }
+  
+  .popup p{
+    background:#fafafa;
+    border-radius:20px;
+    border:solid 3px #dfdfdf;
+    padding: 10px 20px;
+    margin:5px;
+    font-family: Sans-serif;
+    font-weight:bold;
+    color: #555;
+  }
+  
+  .top-right{
+    right:-20%;
+    top:0;
+  }
+  
+  .top-right.active{
+    right:0;
+    top:0;
+  }
+  
+  .bbottom-right{
+    right:-20%;
+    bottom:0;
+  }
+  
+  .bbottom-right.active{
+    right:0;
+    bottom:0;
+  }
+  .report-button-right{
+    right:-20%;
+    bottom:0;
+  }
+  
+  .report-button-right.active{
+    right:0;
+    bottom:0;
+  }
+  
+  @media (max-width: 500px) {
+    .popup{
+      width:50%;
+    }
+    
+    .popup p{
+      font-size:1em;
+    }
+    
+    .top-right{
+      right:-50%;
+    }
+  
+    .bbottom-right{
+      right:-50%;
+    }
+    .report-button-right{
+        right:-50%;
+    }
+  }
+
+  
+  .imagebtn {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background-color: cornflowerblue;;
+    border: 2px solid #e74c3c;
+    border-radius: 0.6em;
+    color: #e74c3c;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 20px;
+    padding-left: 7px;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    text-decoration: none;
+    text-align: center;
+    text-transform: capitalize;
+    font-family: "Montserrat", sans-serif;
+    width: 152px;
+    height: 38px;
+    align-items: center;
+  }
+  .imagebtn:hover, .imagebtn:focus {
+    color: #fff;
+    outline: 0;
+  }
+  
+  .third {
+    border-color: #3498db;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+    transition: all 150ms ease-in-out;
+  }
+  .third:hover {
+    box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  }
+  
+
+</style>
+<style>
+  .hero {
+    min-height: 100vh;
+    width: 100%;
+    background-image: url(https://i.postimg.cc/d3n43ShN/keila-hotzel-Gb-EFj-VVHp-Q-unsplash.jpg);
+    display: grid;
+    place-items: center;
+  }
+  .banner {
+    background: white;
+    padding: 4rem 0;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90vw;
+    max-width: 80%;
+  }
+  .bbtn {
+    background: #c9a0b2;
+    font-weight: 800;
+    border: none;
+    padding: 1em 1.5em;
+    color: whitesmoke;
+    text-transform: uppercase;
+    margin: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s all linear;
+    font-size: 0.875rem;
+    animation: bounce 2s ease-in-out infinite;
+    outline: 1px solid transparent;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(1, 1, 1, 0.5);
+    /*   opacity:0.5; */
+    display: grid;
+    place-items: center;
+    transition: 1s all ease-in;
+    visibility: hidden;
+    z-index: -10;
+  }
+  .open-modal {
+    visibility: visible;
+    z-index: 10;
+    transition: 1s all ease-out;
+  }
+  
+  .modal-container {
+    background: white;
+    padding: 2em;
+  } 
+  
+  @keyframes bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+</style>
+<div class="banner-top" style="padding: 0em;height: 150px;">
+	<div class="container">
+		<h2 class="animated wow fadeInLeft" data-wow-delay=".5s">{{ad.title}}</h2>
+		<h3 class="animated wow fadeInRight" data-wow-delay=".5s"><a href="/">Home</a><label>/</label>Ads</h3>
+		<div class="clearfix"> </div>
+	</div>
+</div>
+	<!--content-->
+<div class="product">
+    <div class="container">
+        <div class="col-md-3 product-bottom ">
+        <!--categories-->
+        {% if own == False %}
+            <div class="categories animated wow fadeInUp animated" data-wow-delay=".5s" >
+                <h3>Seller</h3>
+                <div>
+                    {% if ad.user.propic == '' %}
+                    <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="" style="width:6em">
+                    {% else %}
+                    <img src="{{ad.user.propic}}" alt="" style="width:6em">
+                    {% endif %}
+                </div>
+                <div>
+                    <h1  style='text-transform: capitalize;'>{{ad.user.first_name}}</h1>
+                    <label> {{ad.user.email}} </label>
+                </div>
+                <a href="/seller/{{ad.user.id}}" class="buttons spr-amz-butt midnitghtblue" style="text-decoration: none;">View Profile</a>
+                <a href="/chat/{{ad.user.id}}/{{ad.id}}" class="buttons spr-amz-butt midnitghtblue" style="text-decoration: none;background-color: cornflowerblue;">Message Seller</a>
+                <hr>
+            </div>
+        {% else %}
+        <div class="categories animated wow fadeInUp animated" data-wow-delay=".5s" >
+            <h3>Seller</h3>
+            <div>
+                {% if ad.user.propic == '' %}
+                <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="" style="width:6em">
+                {% else %}
+                <img src="{{ad.user.propic}}" alt="" style="width:6em">
+                {% endif %}
+            </div>
+            <div>
+                <h1>{{ad.user.first_name}}</h1>
+                <label> {{ad.user.email}} </label>
+            </div>
+            <hr>
+        </div>
+        {% endif %}
+        <!--//menu-->
+        </div>
+        <div class="col-md-9 animated wow fadeInRight" data-wow-delay=".5s">
+            <div class="col-md-5 grid-im">		
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li data-thumb="images/si.jpg">
+                            <div class="thumb-image"> <img src="{{ad.img1}}" data-imagezoom="true" class="img-responsive"> </div>
+                        </li>
+                        <li data-thumb="images/si1.jpg">
+                            <div class="thumb-image"> <img src="{{ad.img2}}" data-imagezoom="true" class="img-responsive"> </div>
+                        </li>
+                        <li data-thumb="images/si1.jpg">
+                          <div class="thumb-image"> <img src="{{ad.img3}}" data-imagezoom="true" class="img-responsive"> </div>
+                        </li>
+                    </ul>
+                </div>
+                <a href="/view-images/{{ad.id}}" style="text-decoration: none;"><button class="imagebtn third">View Images</button></a>
+            </div>
+            <div class="col-md-7 single-top-in">
+                <div class="span_2_of_a1 simpleCart_shelfItem">
+                    <h3>{{ad.title}}</h3>
+                    <p class="in-para">{{ad.brand.brand}}&nbsp;|&nbsp;{{ad.brand.category.category}}</p>
+                    <div class="price_single">
+                        <span class="reducedfrom item_price" id="span"></span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div>
+                        {% if own == False %}
+                            {% if ad.id in wish_list %}
+                            <button name="accept" class="bbutton accept" onclick="AddWishList('{{ad.id}}')"><span id="wish" style="color: white;"> Remove from List</span></button>
+                            <button name="accept" class="report-button accept" onclick="report()" data-toggle="modal" data-target="#myModal" style="background: #b15a07;"><span id="report" style="color: white;">Report Ad</span></button>
+                            {% else %}
+                            <button name="accept" class="bbutton accept" onclick="AddWishList('{{ad.id}}')"><span id="wish" style="color: white;">Add To Wish List</span></button>
+                            <button name="accept" class="report-button accept" onclick="report()" data-toggle="modal" data-target="#myModal" style="background: #b15a07;"><span id="report" style="color: white;"> Report Ad</span></button>
+                            {% endif %}
+                            <div id="reportdiv" style="display: none;">
+                              <form name='searchdata' id="search_form" action="search.php" method="get">
+                                <div class="input-with-icon success-control">  
+                                  <textarea name="note" id="note" cols="25" rows="2" placeholder="Reporting note"></textarea>  
+                                  <br/>
+                                  <span id="error" style="color: red;"></span>
+                                </div>  
+                                <button type="button" onclick="form_submit('{{ad.id}}')" name='user_search' value='user' class="btn btn-danger"><i class="fa fa-user"></i> Report Ad </button>
+                                <button type="button" onclick="cancelreport()" name='tag_search' value='tag' class="btn btn-default"><i class="fa fa-tag"></i> Cancel</button>           
+                              </form> 
+                            </div>
+                        {% else %}
+                          <a href="/edit-ad/{{ad.id}}" style="text-decoration: none;"><button name="accept" class="bbutton accept">Edit</button></a>
+                          {% if ad_boosted == True %}
+                            <br><small style="font-size: 17px;">Ad is boosted for next {{days.days}} days</small> 
+                            <div>
+                              <a href="/delete-ad/{{ad.id}}"><button name="accept" id="remove-ad-btn" class="btn btn-secondary" style=" background-color: crimson; color: white; width: 14em; border-radius: 20px;margin-left: 12px;font-weight: 700;letter-spacing: 4px;">Remove Ad</button></a>
+                            </div>
+                          {% else %}
+                            <button name="accept"  class="bbutton accept modal-btn" style="background-color: dimgray;">Boost Ad</button>
+                            <div>
+                              <a href="/delete-ad/{{ad.id}}"><button name="accept" id="remove-ad-btn" class="btn btn-secondary" style=" background-color: crimson; color: white; width: 14em; border-radius: 20px;margin-left: 12px;font-weight: 700;letter-spacing: 4px;">Remove Ad</button></a>
+                            </div>
+                          {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <!----- tabs-box ---->
+                <div class="sap_tabs">	
+                    <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">				  	 
+                        <div class="resp-tabs-container">
+                            <h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>Ad's Description</h2>
+                            <div class="tab-1 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-0" style="display:block">
+                                <div class="facts">
+                                    <h2>Description</h2>
+                                    <p >{{ad.description}}</p>         
+                                </div><hr>
+                                <div>
+                                  <h4>Year</h4><h3>{{ad.year}}</h3><hr>
+                                  {% if ad.brand.category.km_driven == True %}
+                                    <h4>KM driven</h4><h3>{{ad.km_driven}}km</h3><hr>
+                                  {% endif %}
+                                  {% if ad.brand.category.fuel == True %}
+                                    <h4>Fuel Type</h4><h3>{{ad.fuel}}</h3><hr>
+                                  {% endif %}
+                                  </div>
+                            </div>
+                            <h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>Ad's Location</h2>
+                            <div style=" width: 400px; height: 250px;">
+                               <h2>Location</h2>
+                               {{map|safe}}
+                            </div><br><hr>
+                        </div>
+                        <div hidden>
+                            This product includes GeoLite2 data created by MaxMind, available from
+                            <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+                        </div>
+                    </div>
+                    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#horizontalTab').easyResponsiveTabs({
+                                type: 'default', //Types: default, vertical, accordion           
+                                width: 'auto', //auto or any width like 600px
+                                fit: true   // 100% fit in a container
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>			
+</div>
+<!-- modal -->
+<div class="modal-overlay">
+  <div class="modal-container">
+    <h2>Boost this Ad</h2>
+    <small style="font-size: 25px;">₹ 100 - for 1 month</small><br>
+    <button class="btn btn-warning" type="button" onclick="razorpay()" style="width: 16em;"><img src="https://avatars.githubusercontent.com/u/7713209?s=280&v=4" style="width: 2em;" alt=""> RazorPay</button><br>
+    <div id="paypal-button-container"></div>
+    <button class="close-bbtn"><i class="fas fa-times"></i></button>
+    <!-- <button class="close-bbtn">x</button> -->
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AclpiE7CtYAA_QWXJ-tiAlUa1IqfJXKLlZdIb4lUzwCANEIA30hIlvj4QPmil7Rb_ocofaoaWX3jzwWs&currency=USD&disable-funding=card"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  function AdMessage(){
+    $.ajax({
+      url:'/ad-message/{{ad.id}}',
+      method:'GET',
+      success:function(data){
+        if(data == 'true'){
+          window.location.replace('/chat/{{ad.user.id}}/')
+        }else{
+          alert('Some error!')
+        }
+      }
+    })
+  }
+
+    function razorpay(){
+        var payment_status = 'razorpay'
+        var options = {
+            "key": "rzp_test_0CJlFTJsvWeMla", // Enter the Key ID generated from the Dashboard
+            "amount": '10000', // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Pisti Sell",
+            "description": "Get Premium Membership",
+            "image": "https://image.flaticon.com/icons/png/512/575/575780.png",
+            "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                    alert('Transaction completed..!!!');
+                    $.ajax({
+                      url:'/boost-ad/{{ad.id}}',
+                      method:'GET',
+                      success:function(data){
+                        if(data == 'true'){
+                          alert('boosted')
+                        }else{
+                          alert('something wrong')
+                        }
+        
+                      }
+                    })
+                    },
+                    "prefill": {
+                        "name": "{{request.user.name}}",
+                        "email": "{{request.user.email}}",
+                        "contact": "{{request.user.phone}}"
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#F37254"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                
+                    rzp1.open();
+            }
+
+
+    </script>
+<script>
+  // Render the PayPal button into #paypal-button-container
+  paypal.Buttons({
+
+      style: {
+          color:  'blue',
+          shape:  'rect',
+          label:  'pay',
+          height: 40
+      },
+
+      // Set up the transaction
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '1.42'
+                  }
+              }]
+          });
+      },
+
+      // Finalize the transaction
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              // Show a success message to the buyer
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+              $.ajax({
+                url:'/boost-ad/{{ad.id}}',
+                method:'GET',
+                success:function(data){
+                  if(data == 'true'){
+                    alert('boosted')
+                  }else{
+                    alert('something wrong')
+                  }
+                }
+              })
+          });
+      }
+
+
+  }).render('#paypal-button-container');
+</script>
+<script>
+  const modalOverlay = document.querySelector(".modal-overlay");
+const openModalBtn = document.querySelector(".modal-btn");
+const closeModalBtn = document.querySelector(".close-bbtn");
+
+openModalBtn.addEventListener("click", function () {
+  modalOverlay.classList.add("open-modal");
+});
+
+closeModalBtn.addEventListener("click", function () {
+  modalOverlay.classList.remove("open-modal");
+});
+
+</script>
+<script>
+
+    var number = parseFloat('{{ad.price}}');
+    var result="₹ " + number.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/-';
+    document.getElementById("span").textContent= result ;
+</script>
+<script type="text/javascript">
+  function report(){
+    var x = document.getElementById("reportdiv");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    } 
+  }
+
+  function form_submit(id) {
+    var note = document.getElementById('note').value;
+    var data = {
+      'csrfmiddlewaretoken':'{{csrf_token}}',
+      'note':note,
+      'ad_id':id
+    }
+    if(note == ''){
+      document.getElementById('error').innerHTML = "Discribe the reason!"
+    }else{
+      $.ajax({
+        url:'/report-ad/',
+        method:'GET',
+        data:data,
+        dataType:'json',
+        success:function(data){
+          if(data == 'true'){
+            document.getElementById("reportdiv").innerHTML = 'Reporting success'
+            $("#reportdiv").fadeOut(2000);
+          }
+          if(data == 'false'){
+            document.getElementById('error').innerHTML = "You already reported this ad! Admin will take disision"
+            $("#reportdiv").fadeOut(2000);
+          }
+        }
+      })
+    }
+    
+  }  
+  function cancelreport(){
+    document.getElementById("reportdiv").style.display = 'none';
+  }  
+  </script>
+<script>
+	function AddWishList(id){
+		$.ajax({
+			url:'/add-wish-list/'+id,
+			method:'GET',
+			success:function(data){
+				if(data == 'added'){
+					document.getElementById('wish').innerHTML = 'Remove from Wish List';
+				}
+				if(data == 'removed'){
+					document.getElementById('wish').innerHTML = 'Add To Wish List';
+				}
+				if(data == 'false'){}
+			}
+		})
+	}
+</script>
+
+
+<script>
+
+    let timers = {};
+    const timer_names = ['accept', 'cancel'];
+    const popups = [...document.getElementsByClassName('popup')];
+    const buttons = [...document.getElementsByClassName('buttons')];
+
+    function popupTimer(name){
+    if(timers[name]){
+        clearTimeout(timers[name]);
+    }
+    else{
+        document.querySelector('.'+ name + '.popup').classList.add('active');
+    }
+    timers[name] = setTimeout(() => {
+        document.querySelector('.' + name + '.popup').classList.remove('active'); 
+        timers[name] = null
+    }, 8000);
+    }
+
+    document.querySelector('button.accept').addEventListener('click', function(){
+        popupTimer('accept')
+      });
+</script>
+{% endblock %}

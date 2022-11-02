@@ -1,0 +1,396 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css" integrity="sha256-FeDcPwV8ZgxG1MU5L/b2i8clOmqZJKK0eyDHqrQaXxY=" crossorigin="anonymous" />
+{% endblock %}
+{% block content %}
+<div class="container" style=" background-color:  #F5F5F5; overflow-x: hidden;">
+    <u><h2 style="display: flex;place-content: cente; margin-top:2em">Add Product</h2></u>
+    <div style="padding: 2em;display: contents;place-content: center;" >
+        <form action="" id="sell">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">CATEGORY</p>
+                    <select  id="category" onchange="show_brands(this)" style="height: 2em; width: 15em;">
+                        <option selected>Choose...</option>
+                        {% for category in categories %}
+                        <option value="{{category.id}}" {% if category.id == ad.brand.category.id %} selected {% endif %} > {{category.category}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 ">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">BRAND</p>
+                    <select  id="brand" style="height: 2em; width: 15em;">
+                        <option selected value="0">select brand</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Year</p>
+                    <input type="number" id="year" name="year" style="height: 2em; width: 15em;" value="{{ad.year}}">
+                </div>
+                {% if ad.brand.category.km_driven == True %}
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">KM driven</p>
+                    <input type="number" id="km" name="km" placeholder="KM driven" style="height: 2em; width: 15em;" value="{{ad.km_driven}}">
+                </div>
+                {% endif %}
+                {% if ad.brand.category.fuel == True %}
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Fuel Type</p>
+                    <div>
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">Select fuel</p>
+                        <select  id="fuel" style="height: 2em; width: 15em;">
+                            <option selected value="0">Select Fuel</option>
+                            <option value="Petrol" {% if ad.fuel == 'Petrol' %} selected {% endif %}>Petrol</option>
+                            <option value="Desel" {% if ad.fuel == 'Desel' %} selected {% endif %}>Desel</option>
+                        </select>
+                    </div>
+                </div>
+                {% endif %}
+
+                
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Ad Title</p>
+                    <input type="text" id="title" name="title" placeholder="Leave a title" style="height: 2em; width: 15em;" value="{{ad.title}}">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Set Price</p>
+                    <input type="number" id="price" name="price" placeholder="Set your price" style="height: 2em; width: 15em;" value="{{ad.price}}">    
+                </div>
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Ad Description</p>
+                    <textarea name="description" id="description" cols="15" rows="10" style="width: 15em;">{{ad.description}}</textarea>
+                </div>
+            </div>
+            
+            <div class="row p-3">
+                <h2 class="mx-auto m-3" style="    margin: 2em; display: grid; place-content: center;">Ad Location</h2>
+                <div class="col-md-6">
+                    <h5>Your Ad's location</h5><br>
+                    <div style="width: 15em;">
+                        {{map|safe}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5>Or select another</h5><br>
+                    <select class="form-select select" id="location" aria-label="Select District" style="height: 2em; width: 15em;">
+                        <option {% if 'Thiruvananthapuram' in ad_district  %} value="0" selected {% else %} value="Thiruvananthapuram" {% endif %} >Thiruvananthapuram</option>
+                        <option {% if 'Kollam'  in ad_district %} value="0"  selected {% else %} value="Kollam"  {% endif %}>Kollam</option>
+                        <option {% if 'Alappuzha' in ad_district %} value="0" selected {% else %} value="Alappuzha" {% endif %}>Alappuzha</option>
+                        <option {% if 'Pathanamthitta' in ad_district %} value="0" selected {% else %} value="Pathanamthitta" {% endif %}>Pathanamthitta</option>
+                        <option {% if 'Idukki' in ad_district %} value="0" selected {% else %} value="Idukki"  {% endif %}>Idukki</option>
+                        <option {% if 'Kottayam' in ad_district %} value="0" selected {% else %} value="Kottayam"  {% endif %}>Kottayam</option>
+                        <option {% if 'Ernakulam' in ad_district %} value="0" selected {% else %} value="Ernakulam"  {% endif %}>Ernakulam</option>
+                        <option {% if 'Thrissur' in ad_district %} value="0" selected {% else %} value="Thrissur"  {% endif %}>Thrissur</option>
+                        <option {% if 'Palakkad' in ad_district %} value="0" selected {% else %} value="Palakkad"  {% endif %} >Palakkad</option>
+                        <option {% if 'Malappuram' in ad_district %} value="0" selected {% else %} value="Malappuram"  {% endif %}>Malappuram</option>
+                        <option {% if 'Kozhikode' in ad_district %} value="0" selected {% else %} value="Kozhikode"  {% endif %}>Kozhikode</option>
+                        <option {% if 'Wayanad' in ad_district %} value="0" selected {% else %} value="Wayanad"  {% endif %}>Wayanad</option>
+                        <option {% if 'Kannur' in ad_district %} value="0" selected {% else %} value="Kannur"  {% endif %}>Kannur</option>
+                        <option {% if 'Kasaragod' in ad_district %} value="0" selected {% else %} value="Kasaragod"  {% endif %}>Kasaragod</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <p class="title-register-main-connection-div" style="margin-top: 2em;">Add images</p>
+                <div>
+                    
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">
+                            <div class="col-md-6">
+                                <h4>image 1</h4>
+                                <div class="crop" id="crop1">
+                                    <input type="file" name="image1" id="image1" onchange="readURL1(this)">
+                                    <button type="button" id="crop_button1">Crop</button>
+                                    <img src="" alt="" id="pic1" style="visibility: hidden;width: 4em;">
+                                </div>
+                                <img src="{{ad.img1}}" alt="" id="pic21" style="width: 15em;">
+                                <textarea name="imageurl1" id="imageurl1" cols="30" rows="10" hidden></textarea>
+                            </div>
+                        </p>
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">
+                            <div class="col-md-6">
+                                <h4>image 2</h4>
+                                <div class="crop" id="crop2">
+                                    <input type="file" name="image2" id="image2" onchange="readURL2(this)">
+                                    <button type="button" id="crop_button2">Crop</button>
+                                    <img src="" alt="" id="pic2" style="visibility: hidden;width: 4em;">
+                                </div>
+                                <img src="{{ad.img2}}" alt="" id="pic22" style="width: 15em;">
+                                <textarea name="imageurl2" id="imageurl2" cols="30" rows="10" hidden></textarea>
+                            </div>
+                        </p>
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">
+                            <div class="col-md-6">
+                                <h4>image 3</h4>
+                                <div class="crop" id="crop3">
+                                    <input type="file" name="image3" id="image3" onchange="readURL3(this)">
+                                    <button type="button" id="crop_button3">Crop</button>
+                                    <img src="" alt="" id="pic3" style="visibility: hidden;width: 4em;">
+                                </div>
+                                <img src="{{ad.img3}}" alt="" id="pic23" style="width: 15em;">
+                                <textarea name="imageurl3" id="imageurl3" cols="30" rows="10" hidden></textarea>
+                            </div>
+                        </p>
+                </div>
+            </div>
+            <div class="row" style="display: flex; place-content: center;">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <span id="span" style="color: red;"></span><br>
+                    <button id="btn" type="button" class="btn btn-primary" style=" margin: 2em; width: 15em; height: 3em;"><label for="" style="font-size: 25px;">Post Ad</label></button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" id="progress" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </form>
+        <div hidden>
+            This product includes GeoLite2 data created by MaxMind, available from
+            <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+        </div>
+    </div>
+</div>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script>
+    
+    <script>
+        function readURL1(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#pic1').attr('src', e.target.result)
+                $('#pic1').css({'visibility': 'visible'})
+                };
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(initCropper1, 1000);
+            }
+            }
+            function initCropper1(){
+            var image = document.getElementById('pic1');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+                crop: function(e) {
+                }
+            });
+            
+            document.getElementById('crop_button1').addEventListener('click', function(){
+                var imgurl1 =  cropper.getCroppedCanvas().toDataURL();
+                var img1 = document.createElement("img");
+                img1.src = imgurl1;
+                img1.width="300";
+                img1.height='150';
+                document.getElementById('crop1').style.display = 'none'
+                document.getElementById("pic21").replaceWith(img1)
+                $('#imageurl1').val(imgurl1)
+            })
+        }
+    </script>
+    <script>
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#pic2').attr('src', e.target.result)
+                $('#pic2').css({'visibility': 'visible'})
+                };
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(initCropper2, 1000);
+            }
+            }
+            function initCropper2(){
+            var image = document.getElementById('pic2');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+                crop: function(e) {
+                }
+            });
+            
+            document.getElementById('crop_button2').addEventListener('click', function(){
+                var imgurl2 =  cropper.getCroppedCanvas().toDataURL();
+                var img2 = document.createElement("img");
+                img2.src = imgurl2;
+                img2.width="300";
+                img2.height='150';
+                document.getElementById('crop2').style.display = 'none'
+                document.getElementById("pic22").replaceWith(img2)
+                $('#imageurl2').val(imgurl2)
+            })
+        }
+    </script>
+    <script>
+        function readURL3(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#pic3').attr('src', e.target.result)
+                $('#pic3').css({'visibility': 'visible'})
+                };
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(initCropper3, 1000);
+            }
+            }
+            function initCropper3(){
+            var image = document.getElementById('pic3');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+                crop: function(e) {
+                }
+            });
+            
+            document.getElementById('crop_button3').addEventListener('click', function(){
+                var imgurl3 =  cropper.getCroppedCanvas().toDataURL();
+                var img3 = document.createElement("img");
+                img3.src = imgurl3;
+                img3.width="300";
+                img3.height='150';
+                document.getElementById('crop3').style.display = 'none'
+                document.getElementById("pic23").replaceWith(img3)
+                $('#imageurl3').val(imgurl3)
+            })
+        }
+    </script>
+<script>
+    $('#btn').click(function(){
+        var category_id = $('#category').val()
+        var brand = $('#brand').val()
+        var year = $('#year').val()
+        var title = $('#title').val()
+        var description = $('#description').val()
+        var test_num = /\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4}/g;
+        var price = $('#price').val()
+        var fuel = $('#fuel').val()
+        var km = $('#km').val()
+        var image1 = $('#imageurl1').val()
+        var image2 = $('#imageurl2').val()
+        var image3 = $('#imageurl3').val()
+        var district = $('#location').val()
+        var data = {
+            'csrfmiddlewaretoken':'{{csrf_token}}',
+            'category_id':category_id,
+            'brand':brand,
+            'year':year,
+            'km' : km,
+            'title':title,
+            'description':description,
+            'price':price,
+            'img1':image1,
+            'img2':image2,
+            'img3':image3,
+            'new_district':district,
+            'fuel':fuel
+        }
+        var error = false
+        if(brand == '0'){
+            $('#span').html('Select Brand after choose category')
+        }else if(year.length != 4 || isNaN(year)){
+            $('#span').html('Enter valid year')
+        }else if(title.length < 6){
+            $('#span').html('Enter valid Title')
+        }else if(description.length <20){
+            $('#span').html('Enter valid description')
+        }else if(test_num.test(description) == true){
+            $('#span').html('Phone number in description is not allowed');
+            error = true;
+        }else if(price.length<1 || isNaN(price)){
+            $('#span').html('Enter valid Price')
+        }else{
+            {% for category in categories %}
+                if('{{category.id}}' == category_id ){
+                    if('{{category.km_driven}}' == 'True'){
+                        if(km.length < 1 || isNaN(km)){
+                            $('#span').html('Enter valid KM driven')
+                            error = true;
+                        }
+                    }
+                    if('{{category.fuel}}' == 'True'){
+                        if(fuel == '0'){
+                            $('#span').html('Select fuel')
+                            error = true;
+                        }
+                    }
+                }
+            {% endfor %}
+        }
+        if (error == true){
+            
+        }else{
+            $.ajax({
+                url:'/edit-ad/{{ad.id}}',
+                method:'POST',
+                data:data,
+                dataType:'json',
+                xhr: function(){
+                    const xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener('progress',e=>{
+                        console.log(e)
+                        if(e.lengthComputable){
+                            var percent = e.loaded / e.total * 100;
+                            document.getElementById('progress').style.width = percent + '%';
+                        }
+                    })
+                    return xhr
+                },
+                success:function(data){
+                    if(data=='true'){
+                        window.location.replace('/view-ad/{{ad.id}}')
+                    }
+                    if(data=='false'){
+                        $('#span').html('Your last ad is active, add after it expired')
+                    }
+                }
+            })
+        }
+        
+    })
+</script>
+<script>
+        var category_id = document.getElementById('category').value;
+        var select = document.getElementById("brand");
+        var length = select.options.length;
+        for (i = length-1; i >= 0; i--) {
+        select.options[i] = null;
+        }
+        var option = document.createElement("option");
+        option.text = "Select brand";
+        option.value = '0';
+        select.add(option);
+        {% for brand in brands %}
+            if('{{brand.category.id}}' == category_id){
+                var option = document.createElement("option");
+                option.text = "{{brand.brand}}";
+                option.value = '{{brand.id}}';
+                if('{{ad.brand.id}}' == '{{brand.id}}'){
+                    option.selected = true
+                }
+                select.add(option);
+            }
+        {% endfor %}
+    
+        function show_brands(hi){
+            var select = document.getElementById("brand");
+            var length = select.options.length;
+            for (i = length-1; i >= 0; i--) {
+            select.options[i] = null;
+        }
+            var id = hi.value
+            var x = document.getElementById("category");
+            var option = document.createElement("option");
+            option.text = "Select brand";
+            select.add(option);
+            {% for brand in brands %}
+                if('{{brand.category.id}}' == id){
+                    var option = document.createElement("option");
+                    option.text = "{{brand.brand}}";
+                    option.value = '{{brand.id}}';
+                    select.add(option);
+                }
+            {% endfor %}
+            
+        }
+</script>
+{% endblock %}

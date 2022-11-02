@@ -1,0 +1,456 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block link %}
+<style>
+    h2 {
+        font-family: "Poppins";
+        font-size: 36px;
+    
+        margin-bottom: 15px;
+    }
+    
+    h3 {
+        font-size: 24px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.699);
+    
+        margin-bottom: 25px;
+        margin-top: 0px;
+    }
+    
+    h3,
+    span,
+    p {
+        font-family: "Avenir";
+    }
+    
+    .profile_container,
+    .info,
+    .back {
+        margin: 60px 100px 0px;
+        max-width: 900px;
+        display: flex;
+        overflow-x: hidden;
+    }
+    
+    .back {
+        display: flex;
+        align-items: center;
+        color: rgba(34, 34, 34, 0.5);
+    }
+    
+    .back i {
+        margin-right: 15px;
+    }
+    
+    .profile_img-LG {
+        height: 400px;
+        width: 300px;
+        border-radius: 40px;
+    
+        object-fit: cover;
+        object-position: 50% 50%;
+    
+        background-position: 40% 50%;
+    }
+    
+    .flag_wrapper {
+        width: 50px;
+        height: 50px;
+        background-color: #f2f2f2;
+        border-radius: 100%;
+        position: relative;
+        top: -70px;
+        left: 230px;
+    }
+    
+    .flag {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto auto;
+    }
+    
+    .description {
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+    
+    .profile_img_section {
+        margin-right: 50px;
+    }
+    
+    .profile_desc_section {
+        display: flex;
+        flex-direction: column;
+    
+        margin-left: 50px;
+    }
+    
+    .interests_item {
+        display: inline-block;
+        padding: 5px 15px;
+        margin-right: 7.5px;
+        margin-bottom: 10px;
+        line-height: 35px;
+        background-color: #4076d6;
+        border-radius: 5px;
+    
+        color: rgb(255, 254, 254);
+    }
+    
+    .info {
+        margin-top: -20px;
+        margin-left: 100px;
+    }
+    
+    .link_img_wrapper {
+        width: 40px;
+        height: 40px;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        position: relative;
+    }
+    
+    .link_img {
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto auto;
+    }
+    
+    ul {
+        padding: 0px;
+    }
+    
+    li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    
+    li p {
+        margin-left: 30px;
+        color: rgba(34, 34, 34, 0.5);
+    }
+    
+    @media screen and (max-width: 1000px) {
+        .profile_container,
+        .info,
+        .back {
+            margin: 30px 4px 0px;
+        }
+    
+        .profile_container {
+            flex-direction: column;
+        }
+    
+        .profile_img_section {
+            margin: 0 auto;
+        }
+    
+        .profile_img-LG {
+            width: 300px;
+            height: 300px;
+            border-radius: 100%;
+        }
+    
+        .flag_wrapper {
+        }
+    
+        .profile_desc_section {
+            margin-left: 0px;
+            margin-bottom: 10px;
+            margin-top: -40px;
+        }
+    
+        .info {
+            margin-top: 10px;
+            margin-left: 33px;
+        }
+    }
+    .follow{
+        width: 5em;
+        background-color: green;
+        font-size: 18px;
+        font-family: cursive;
+    }
+    
+</style>
+<style>
+    .hero {
+        min-height: 100vh;
+        width: 100%;
+        background-image: url(https://i.postimg.cc/d3n43ShN/keila-hotzel-Gb-EFj-VVHp-Q-unsplash.jpg);
+        display: grid;
+        place-items: center;
+      }
+      .banner {
+        background: white;
+        padding: 4rem 0;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 90vw;
+        max-width: 80%;
+      }
+      
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(1, 1, 1, 0.5);
+        /*   opacity:0.5; */
+        display: grid;
+        place-items: center;
+        transition: 1s all ease-in;
+        visibility: hidden;
+        z-index: -10;
+      }
+      .open-modal {
+        visibility: visible;
+        z-index: 10;
+        transition: 1s all ease-out;
+      }
+      
+      .modal-container {
+        background: white;
+        width: 90vw;
+        height: 55vh;
+      }
+      
+      
+      .close-btn {
+        background: transparent;
+        outline: none;
+        border: none;
+        font-size: 2rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        animation: bounce 2s ease-in-out infinite;
+      }
+      
+      @keyframes bounce {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      
+</style>
+{% endblock %}
+{% block content %}
+<link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<div class="container">
+
+    <section class="profile_container">
+        <div class="profile_img_section">
+            {% if seller.propic == '' %}
+                <img class="profile_img-LG" style="height: 12em; width: 12em;" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+            {% else %}
+                <img class="profile_img-LG" src="{{seller.propic}}" style="height: 12em; width: 12em;" />
+            {% endif %} 
+            
+        </div>
+        <br><br>
+        <div class="profile_desc_section">
+            <h2 style="text-transform: capitalize;">{{seller.first_name}}&nbsp;{{seller.last_name}}</h2>
+            <div style="display: flex;">
+                {% if request.user.id != seller.id %}
+                <button type="button" class="btn btn-info" style="width: 5em;font-size: 1em;" onclick="follow('{{seller.id}}')">
+                    <span id="follow">
+                        {% if is_following == True %}
+                        unfollow
+                        {% else %}
+                        follow
+                        {% endif %}
+                    </span>
+                </button>
+                {% endif %}
+            </div>
+            <br>
+
+            <div class="interests">
+                <button type="button"  class="btn btn-primary modal-btn" ><span id="followers" >{{count_followers}} followers</span></button>
+                <button type="button"  class="btn btn-primary modal1-btn" ><span id="followings" >{{count_followings}} followings</span></button>
+                <div class="modal-overlay">
+                    <div class="modal-container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 col-sm-6">
+                                    <h3>followers&nbsp;</h3>
+                                    <div>
+                                        <ul id="followers-list">
+                                            {% for follow in followers %}
+                                                    <li id='ownlist-{{follow.follower.id}}'>
+                                                        <a {% if request.user.id == follow.follower.id  %}href='/user-profile/'{% else %} href="/seller/{{follow.follower.id}}"{% endif %} style="color: black;text-decoration: none;">
+                                                            <img src="{{follow.follower.propic}}" style="width: 2em;" alt="">
+                                                            <label for="" style="text-transform: capitalize;">&nbsp;{{follow.follower.username}}</label>
+                                                        </a>
+                                                    </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-6 col-sm-6">
+                                    <h3>&nbsp;followings</h3>
+                                    <div>
+                                        {% for follow in followings %}
+                                            <ul>
+                                                <li>
+                                                    <a {% if request.user.id == follow.following.id  %}href='/user-profile/'{% else %} href="/seller/{{follow.following.id}}"{% endif %} style="color: black;text-decoration: none;">
+                                                        <img src="{{follow.following.propic}}" style="width: 2em;" alt="">
+                                                        <label for="" style="text-transform: capitalize;">&nbsp;{{follow.following.username}}</label>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        {% endfor %}
+                                    </div>
+                                    <button class="close-btn"><i class="fas fa-times" style="width: 0px;"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <ul>
+                <li>
+                    <div class="link_img_wrapper">
+                        <img class="link_img" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/samsung/265/globe-with-meridians_1f310.png" alt="">
+                    </div>
+                    <p>{{seller.email}}</p>
+                </li>
+            </ul>
+            <hr>
+            <h3>Ads</h3>
+            <div>
+                {% for ad in ads %}
+                {% if ad.active == True %}
+                <div class="col-md-7 col-sm-5 animated wow fadeInRight" data-wow-delay=".1s">
+                    <div class="col-sm-4 item-grid simpleCart_shelfItem" >
+                        <div class="grid-pro" style="padding: 0em; width: 12rem; height: 13rem;margin: 2em;">
+                            <div  class=" grid-product " >
+                                <figure>		
+                                    <a href="/view-ad/{{ad.id}}">
+                                        <div class="grid-img">
+                                            <img  src="{{ad.img1}}" class="img-responsive" alt="" >
+                                        </div>
+                                        <div class="grid-img">
+                                            <img  src="{{ad.img2}}" class="img-responsive"  alt="" >
+                                        </div>		
+                                    </a>		
+                                </figure>	
+                            </div>
+                            <div class="women">
+                                <img id="wish-image-{{ad.id}}" {% if ad.id in wish_list %} src="{% static 'images/download.png' %}"{% else %} src="{% static 'images/ll.png' %}" {% endif %} alt="" style="width: 1em;" onclick="AddWishList('{{ad.id}}')">
+                                <h6><a href="/view-ad/{{ad.id}}">{{ad.title}}</a></h6>
+                                <p ><em class="item_price">Rs : {{ad.price}}/-</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %} 
+               <hr>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="info">
+        
+    </div>
+</div>
+<script>
+    const modalOverlay = document.querySelector(".modal-overlay");
+    const openModalBtn = document.querySelector(".modal-btn");
+    const closeModalBtn = document.querySelector(".close-btn");
+
+    openModalBtn.addEventListener("click", function () {
+    modalOverlay.classList.add("open-modal");
+    });
+
+    closeModalBtn.addEventListener("click", function () {
+    modalOverlay.classList.remove("open-modal");
+    });
+
+</script>
+<script>
+    const modalOverlay1 = document.querySelector(".modal-overlay");
+    const openModalBtn1 = document.querySelector(".modal1-btn");
+    const closeModalBtn1 = document.querySelector(".close-btn");
+
+    openModalBtn1.addEventListener("click", function () {
+    modalOverlay1.classList.add("open-modal");
+    });
+
+    closeModalBtn1.addEventListener("click", function () {
+    modalOverlay1.classList.remove("open-modal");
+    });
+
+</script>
+<script>
+    function follow(id){
+        var count = parseInt(document.getElementById('followers').textContent)
+        $.ajax({
+            url:'/follow-user/'+id,
+            method:'GET',
+            success:function(data){
+                if(data == 'unfollow'){
+                    $('#follow').html('unfollow')
+                    $('#followers').html(count+1 +' followers')
+                    var ul = document.getElementById("followers-list");
+                    var li = document.createElement("li");
+                    li.setAttribute("id", 'ownlist-'+'{{request.user.id}}');
+                    ul.appendChild(li);
+                    $('#ownlist-'+'{{request.user.id}}').html('<a href="/user-profile/" style="color: black;text-decoration: none;"><img src="{{request.user.propic}}" style="width: 2em;" alt=""><label for="" style="text-transform: capitalize;">&nbsp;{{request.user.username}}</label></a>')
+                    
+                }
+                if(data == 'follow'){
+                    $('#follow').html('follow')
+                    $('#followers').html(count-1 +' followers')
+                    $('#ownlist-'+'{{request.user.id}}').html(' ')
+                    $('#followlist').html(' ')
+                }
+            }
+        })
+    }
+
+
+    function AddWishList(id){
+		$.ajax({
+			url:'/add-wish-list/'+id,
+			method:'GET',
+			success:function(data){
+				if(data == 'added'){
+					document.getElementById('wish-image-'+id).src="{% static 'images/download.png' %}";
+				}
+				if(data == 'removed'){
+					document.getElementById('wish-image-'+id).src="{% static 'images/ll.png' %}";
+				}
+				if(data == 'false'){}
+			}
+		})
+	}
+</script>
+{% endblock %}

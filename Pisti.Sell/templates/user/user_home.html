@@ -1,0 +1,136 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- banner -->
+<div class="banner">
+	<div class="banner-right">
+		<ul id="flexiselDemo2">
+			{% for ad in fetured_ads %}			
+			<li>
+				<div class="banner-grid">
+					<h2>{{ad.brand.brand}}</h2>
+					<small style="background-color: yellow;">Fetured Ad</small>
+					<div class="wome">
+						<a href="/view-ad/{{ad.id}}" ><img class="img-responsive" src="{{ad.img1}}" alt="" /></a>
+						<div class="women simpleCart_shelfItem">
+							<img id="fetured-wish-image-{{ad.id}}" {% if ad.id in wish_list %} src="{% static 'images/download.png' %}"{% else %} src="{% static 'images/ll.png' %}" {% endif %} alt="" style="width: 1em;" onclick="FeturedAddWishList('{{ad.id}}')">
+							<h6 ><a href="#">{{ad.title}}</a></h6>
+							<p class="ba-price"><em class="item_price" id="futured-{{ad.id}}"></em></p>
+						</div>							
+					</div>							
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+    </div>
+</div>
+<!-- //banner -->
+<!--content-->
+<div class="content-top">
+	<div class="col-md-2">
+		<!-- filters -->
+
+	</div>
+	<div class="col-md-8 animated wow " data-wow-delay=".1s" style="margin-top: 2em;margin-bottom: 2em;">
+		{% for ad in ads %}
+		{% if ad.active == True%}
+		{% if ad.id in ads_id %}
+		<div class="col-sm-4 item-grid simpleCart_shelfItem">
+			<div class="grid-pro" style="height: 300px; margin-top:2em">
+				<div  class=" grid-product " >
+					<figure>		
+						<a href="/view-ad/{{ad.id}}">
+							<div class="grid-img">
+								<img  src="{{ad.img1}}" class="img-responsive" alt="">
+							</div>
+							<div class="grid-img">
+								<img  src="{{ad.img2}}" class="img-responsive"  alt="">
+							</div>			
+						</a>		
+					</figure>	
+				</div>
+				<div class="women">
+					<div>
+						<img id="wish-image-{{ad.id}}" {% if ad.id in wish_list %} src="{% static 'images/download.png' %}"{% else %} src="{% static 'images/ll.png' %}" {% endif %} alt="" style="width: 1em;" onclick="AddWishList('{{ad.id}}')">
+						<h6><a href="/view-ad/{{ad.id}}" style="font-size: 18px;">{{ad.title}}</a></h6>
+					</div>
+					<div>
+						<p ><em class="item_price" id={{ad.id}} ></em></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+		<div class="clearfix"></div>
+	</div>
+	<div class="col-md-2"></div>
+	<div class="clearfix"></div>
+</div>
+<!----->
+<!-- show price in fetured products -->
+{% for ad in fetured_ads %}
+	<script>
+		var number = parseFloat('{{ad.price}}');
+		var result="₹ " + number.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/-';
+		document.getElementById('futured-'+'{{ad.id}}').textContent= result ;
+	</script>
+{% endfor %}
+
+
+<!-- show price in all products -->
+{% for ad in  ads %}
+	{% if ad.active == True%}
+		<script>
+			var number = parseFloat('{{ad.price}}');
+			var result="₹ " + number.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/-';
+			document.getElementById("{{ad.id}}").textContent= result ;
+		</script>
+	{% endif %}
+{% endfor %}
+
+
+<!-- for adding wish List -->
+<script>
+	function AddWishList(id){
+		$.ajax({
+			url:'/add-wish-list/'+id,
+			method:'GET',
+			success:function(data){
+				if(data == 'added'){
+					document.getElementById('wish-image-'+id).src="{% static 'images/download.png' %}";
+					document.getElementById('fetured-wish-image-'+id).src="{% static 'images/download.png' %}";
+				}
+				if(data == 'removed'){
+					document.getElementById('wish-image-'+id).src="{% static 'images/ll.png' %}";
+					document.getElementById('fetured-wish-image-'+id).src="{% static 'images/ll.png' %}";
+				}
+				if(data == 'false'){}
+			}
+		})
+	}
+
+
+	//for adding wish list in fetured ads
+	function FeturedAddWishList(id){
+		$.ajax({
+			url:'/add-wish-list/'+id,
+			method:'GET',
+			success:function(data){
+				if(data == 'added'){
+					document.getElementById('fetured-wish-image-'+id).src="{% static 'images/download.png' %}";
+					//document.getElementById('wish-image-'+id).src="{% static 'images/download.png' %}";
+				}
+				if(data == 'removed'){
+					document.getElementById('fetured-wish-image-'+id).src="{% static 'images/ll.png' %}";
+					//document.getElementById('wish-image-'+id).src="{% static 'images/ll.png' %}";
+				}
+				if(data == 'false'){}
+			}
+		})
+	}
+</script>
+{% endblock %}
+			

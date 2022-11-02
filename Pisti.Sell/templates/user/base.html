@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pisti</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Classic Style Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/font-awesome.css'%}" rel="stylesheet"> 
+<link href="{% static 'css/animate.min.css' %}" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Cabin:400,500,600,700' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+<link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet">
+</head>
+	
+<body>
+	
+{% block link %}
+{% endblock %}
+<!-- header -->
+	<div class="header">
+			<div class="logo-nav" style=" padding: 1em;">
+				
+					<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header nav_2">
+						<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						 <div class="navbar-brand logo-nav-left mx-auto">
+							<h1 class="animated wow pulse " style="margin-left: 0;" data-wow-delay=".5s"><a href="/">PISTI<span>Sell</span></a></h1>
+						</div>
+
+					</div> 
+					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+						<ul class="nav navbar-nav">
+							<li>
+								<!-- <div class="input-group mb-3" > -->
+									<div class="input-group-prepend" style="margin-top: 12px;margin-right: 20px;">
+                    <form action="/location-filter/" id="location-filter">
+                      <select class="custom-select form-control" id="district" name="district" style="height: 3em;" onchange="FilterByDistrict()" >
+                        <option selected value="0">Location</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Kollam">Kollam</option>
+                        <option value="Alappuzha">Alappuzha</option>
+                        <option value="Pathanamthitta">Pathanamthitta</option>
+                        <option value="Idukki">Idukki</option>
+                        <option value="Kottayam">Kottayam</option>
+                        <option value="Ernakulam">Ernakulam</option>
+                        <option value="Thrissur">Thrissur</option>
+                        <option value="Palakkad">Palakkad</option>
+                        <option value="Malappuram">Malappuram</option>
+                        <option value="Kozhikode">Kozhikode</option>
+                        <option value="Wayanad">Wayanad</option>
+                        <option value="Kannur">Kannur</option>
+                        <option value="Kasaragod">Kasaragod</option>
+                      </select>
+                    </form>
+								</div>
+							</li>
+							<li>
+								<form action="/search-filter/" class="form-inline my-2 my-lg-0" style="margin-top: 13px;">
+									<input class="form-control mr-sm-2" id="key" name="key" type="search" placeholder="Find cars, bikes, .." aria-label="Search" style="height: 3em;width: 21em;">
+								</form>
+							</li>
+							<li class="active" class="float-left"><a href="/" class="act">Home</a></li>
+              <li>
+                <a href="/chat/"><img src="{% static 'images/chat.svg' %}" alt="" style="width: 2em;    margin-top: -16px;"></a>
+              </li>
+							<li class="float-left">
+								<a href="/sell-product/">
+									<img src="https://media.dojmt.gov/wp-content/uploads/buy-sell-icon.jpg" alt="" style="width: 50px;margin-top: -20px;border-radius: 50%;">
+									<small>sell</small>
+								</a>
+							</li>
+              <li class="float-left">
+                <!-- Example single danger button -->
+                <div class="btn-group">
+                  {% if user.propic == '' %}
+                    <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="" style="width: 50px; margin-top: -3px;border-radius: 50%;margin-left: 1em;" class=" dropdown-toggle" data-toggle="dropdown" >
+                  {% else %}
+                    <img src="{{user.propic}}" alt="" style="width: 50px; margin-top: 4px;border-radius: 50%;margin-left: 1em;" class=" dropdown-toggle" data-toggle="dropdown" >
+                  {% endif %}
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" style="text-decoration: none;" href="/user-profile/"><h4>Your Profile</h4></a><br>
+                    <a class="dropdown-item" style="text-decoration: none;" href="/view-wish-list/"><h4>Wish List</h4></a><br>
+                    <a class="dropdown-item" style="text-decoration: none;" href="/get-premium/"><h4>Get Premium</h4></a><br>
+                    <a class="dropdown-item" style="text-decoration: none;" href="/user-logout/"><h4>Log Out</h4></a><br>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                </div>
+							</li>
+						</ul>
+					</div>
+					</nav>
+				</div>
+	</div>
+<!-- //header -->
+{% block content %}
+{% endblock %}
+
+<!-- footer -->
+<div class="footer">
+    <div class="container">
+    <div class="footer-top">
+    <div class="col-md-9 footer-top1">
+    <h4>Pisti Sell </h4>
+    <p>Pisti Sell stands for trust. </p>
+    </div>
+    <div class="clearfix"> </div>
+    </div>
+        <div class="footer-grids">
+            <div class="col-md-4 footer-grid animated wow fadeInLeft" data-wow-delay=".5s">
+                <h3>About Us</h3>
+                <p>This helps you to sell your Vehicles or find perfect Vehicles for you.</p>
+            </div>
+            <div class="col-md-4 footer-grid animated wow fadeInLeft" data-wow-delay=".6s">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="glyphicon glyphicon-map-marker" ></i>1234k Avenue, 4th block, <span>New York City.</span></li>
+                    <li class="foot-mid"><i class="glyphicon glyphicon-envelope" ></i><a href="mailto:info.ranjithr@gmail.com">info.ranjithr@gmail.com</a></li>
+                    <li><i class="glyphicon glyphicon-earphone" ></i>6282936599</li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-grid animated wow fadeInLeft" data-wow-delay=".7s">       
+            </div>
+        
+            <div class="clearfix"> </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+  function FilterByDistrict(){
+    document.getElementById('location-filter').submit()
+  }
+</script>
+<!-- //footer -->
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/simpleCart.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script>
+new WOW().init();
+</script>
+<script type="text/javascript">
+$(window).load(function() {
+    $("#flexiselDemo2").flexisel({
+        visibleItems: 1,
+        animationSpeed: 1000,
+        autoPlay: true,
+        autoPlaySpeed: 5000,    		
+        pauseOnHover: true,
+        enableResponsiveBreakpoints: true,
+        responsiveBreakpoints: { 
+            portrait: { 
+                changePoint:480,
+                visibleItems: 1
+            }, 
+            landscape: { 
+                changePoint:640,
+                visibleItems: 1
+            },
+            tablet: { 
+                changePoint:768,
+                visibleItems: 1
+            }
+        }
+    });
+    
+});
+</script>
+<script type="text/javascript" src="{% static 'js/jquery.flexisel.js' %}"></script>
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+          $("#owl-demo").owlCarousel({
+            items : 2,
+            lazyLoad : false,
+            autoPlay : true,
+            navigation : true,
+            navigationText :  true,
+            pagination : false,
+          });
+        });
+      </script>
+</body>
+</html>

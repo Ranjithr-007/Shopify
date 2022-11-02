@@ -1,0 +1,404 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.css" integrity="sha256-FeDcPwV8ZgxG1MU5L/b2i8clOmqZJKK0eyDHqrQaXxY=" crossorigin="anonymous" />
+{% endblock %}
+{% block content %}
+<div class="container" style=" background-color:  #F5F5F5; overflow-x: hidden;">
+    <u><h2 style="display: flex;place-content: cente; margin-top:2em">Add Product</h2></u>
+    <div style="padding: 2em;display: contents;place-content: center;" >
+        <form action="" id="sell">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">CATEGORY</p>
+                    <select  id="category" class="form-control" onchange="show_brands(this)" style="height: 3em; width: 20em;">
+                        <option selected>Choose...</option>
+                        {% for category in categories %}
+                        <option value="{{category.id}}"> {{category.category}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 ">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">BRAND</p>
+                    <select  id="brand" class="form-control" style="height: 3em; width: 20em;">
+                        <option selected value="0">select brand</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Year</p>
+                    <input type="number" id="year" name="year" class="form-control" style="height: 3em; width: 20em;" value="2021">
+                </div>
+                <div class="col-md-6" id="km-div">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Ad Title</p>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Leave a title" style="height: 3em; width: 20em;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Set Price</p>
+                    <input type="number" id="price" name="price" class="form-control" placeholder="Set your price" style="height: 3em; width: 20em;">    
+                </div>
+                <div id="km-attribute-div"></div>
+                <div id="fuel-attribute-div"></div>
+                <div class="col-md-6">
+                    <p class="title-register-main-connection-div" style="margin-top: 2em;">Ad Description</p>
+                    <textarea name="description" id="description" class="form-control" cols="15" rows="10" style="width: 20em;"></textarea>
+                </div>
+            </div>
+            
+            <div class="row p-3">
+                <h2 class="mx-auto m-3" style="    margin: 2em; display: grid; place-content: center;">Ad Location</h2>
+                <div class="col-md-6">
+                    <h5>Your current location</h5><br>
+                    <div style="width: 15em;">
+                        {{map|safe}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5>Or select a location</h5><br>
+                    <select class="form-select select form-control" id="new_district" aria-label="Select District" style="height: 3em; width: 20em;">
+                        <option selected value="0">Select District</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Kollam">Kollam</option>
+                        <option value="Alappuzha">Alappuzha</option>
+                        <option value="Pathanamthitta">Pathanamthitta</option>
+                        <option value="Idukki">Idukki</option>
+                        <option value="Kottayam">Kottayam</option>
+                        <option value="Ernakulam">Ernakulam</option>
+                        <option value="Thrissur">Thrissur</option>
+                        <option value="Palakkad">Palakkad</option>
+                        <option value="Malappuram">Malappuram</option>
+                        <option value="Kozhikode">Kozhikode</option>
+                        <option value="Wayanad">Wayanad</option>
+                        <option value="Kannur">Kannur</option>
+                        <option value="Kasaragod">Kasaragod</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <p class="title-register-main-connection-div" style="margin-top: 2em;">Add images</p>
+                <div>
+                    
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">
+                            <div class="col-md-6">
+                                <h4>image 1</h4>
+                                <div class="crop" id="crop1">
+                                    <input type="file" name="image1" id="image1"  onchange="readURL1(this)">
+                                    <button type="button" id="crop_button1">Crop</button>
+                                    <img src="" alt="" id="pic1" style="visibility: hidden;width: 4em;">
+                                </div>
+                                <img src="" alt="" id="pic21">
+                                <textarea name="imageurl1" id="imageurl1" cols="30" rows="10" hidden></textarea>
+                            </div>
+                        </p>
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">
+                            <div class="col-md-6">
+                                <h4>image 2</h4>
+                                <div class="crop" id="crop2">
+                                    <input type="file" name="image2" id="image2"  onchange="readURL2(this)">
+                                    <button type="button" id="crop_button2">Crop</button>
+                                    <img src="" alt="" id="pic2" style="visibility: hidden;width: 4em;">
+                                </div>
+                                <img src="" alt="" id="pic22">
+                                <textarea name="imageurl2" id="imageurl2" cols="30" rows="10" hidden></textarea>
+                            </div>
+                        </p>
+                        <p class="title-register-main-connection-div" style="margin-top: 2em;">
+                            <div class="col-md-6">
+                                <h4>image 3</h4>
+                                <div class="crop" id="crop3">
+                                    <input type="file" name="image3" id="image3"  onchange="readURL3(this)">
+                                    <button type="button" id="crop_button3">Crop</button>
+                                    <img src="" alt="" id="pic3" style="visibility: hidden;width: 4em;">
+                                </div>
+                                <img src="" alt="" id="pic23">
+                                <textarea name="imageurl3" id="imageurl3" cols="30" rows="10" hidden></textarea>
+                            </div>
+                        </p>
+                </div>
+            </div>
+            <div class="row" style="display: flex; place-content: center;">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <span id="span" style="color: red;"></span><br>
+                    <button id="btn" type="button" class="btn btn-primary" style=" margin: 2em; width: 15em; height: 3em;"><label for="" style="font-size: 25px;">Post Ad</label></button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" id="progress" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </form>
+        <div hidden>
+            This product includes GeoLite2 data created by MaxMind, available from
+            <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
+        </div>
+    </div>
+</div>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.0.0/cropper.min.js"></script>
+    
+    <script>
+        function readURL1(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#pic1').attr('src', e.target.result)
+                $('#pic1').css({'visibility': 'visible'})
+                };
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(initCropper1, 1000);
+            }
+            }
+            function initCropper1(){
+            var image = document.getElementById('pic1');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+                crop: function(e) {
+                }
+            });
+            
+            document.getElementById('crop_button1').addEventListener('click', function(){
+                var imgurl1 =  cropper.getCroppedCanvas().toDataURL();
+                var img1 = document.createElement("img");
+                img1.src = imgurl1;
+                img1.width="300";
+                img1.height='150';
+                document.getElementById('crop1').style.display = 'none'
+                document.getElementById("pic21").replaceWith(img1)
+                $('#imageurl1').val(imgurl1)
+            })
+        }
+    </script>
+    <script>
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#pic2').attr('src', e.target.result)
+                $('#pic2').css({'visibility': 'visible'})
+                };
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(initCropper2, 1000);
+            }
+            }
+            function initCropper2(){
+            var image = document.getElementById('pic2');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+                crop: function(e) {
+                }
+            });
+            
+            document.getElementById('crop_button2').addEventListener('click', function(){
+                var imgurl2 =  cropper.getCroppedCanvas().toDataURL();
+                var img2 = document.createElement("img");
+                img2.src = imgurl2;
+                img2.width="300";
+                img2.height='150';
+                document.getElementById('crop2').style.display = 'none'
+                document.getElementById("pic22").replaceWith(img2)
+                $('#imageurl2').val(imgurl2)
+            })
+        }
+    </script>
+    <script>
+        function readURL3(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#pic3').attr('src', e.target.result)
+                $('#pic3').css({'visibility': 'visible'})
+                };
+                reader.readAsDataURL(input.files[0]);
+                setTimeout(initCropper3, 1000);
+            }
+            }
+            function initCropper3(){
+            var image = document.getElementById('pic3');
+            var cropper = new Cropper(image, {
+                aspectRatio: 16 / 9,
+                crop: function(e) {
+                }
+            });
+            
+            document.getElementById('crop_button3').addEventListener('click', function(){
+                var imgurl3 =  cropper.getCroppedCanvas().toDataURL();
+                var img3 = document.createElement("img");
+                img3.src = imgurl3;
+                img3.width="300";
+                img3.height='150';
+                document.getElementById('crop3').style.display = 'none'
+                document.getElementById("pic23").replaceWith(img3)
+                $('#imageurl3').val(imgurl3)
+            })
+        }
+    </script>
+<script>
+    $('#btn').click(function(){
+        var category = $('#category').val()
+        var brand = $('#brand').val()
+        var year = $('#year').val()
+        var km = $('#km').val()
+        var title = $('#title').val()
+        var description = $('#description').val()
+        var test_num = /\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4}/g;
+        var price = $('#price').val()
+        var image1 = $('#imageurl1').val()
+        var image2 = $('#imageurl2').val()
+        var image3 = $('#imageurl3').val()
+        const img1_size = document.getElementById('image1').files[0].size;
+        const img2_size = document.getElementById('image2').files[0].size;
+        const img3_size = document.getElementById('image3').files[0].size;
+        console.log(img1_size,img2_size,img3_size)
+        var district = $('#new_district').val()
+        var fuel = $('#fuel').val()
+        var data = {
+            'csrfmiddlewaretoken':'{{csrf_token}}',
+            'category':category,
+            'brand':brand,
+            'year':year,
+            'km' : km,
+            'fuel':fuel,
+            'title':title,
+            'description':description,
+            'price':price,
+            'img1':image1,
+            'img2':image2,
+            'img3':image3,
+            'district':district
+        }
+        var error = false;
+        if(brand == '0'){
+            $('#span').html('Select Brand after choose category')
+            error = true;
+        }else if(year.length != 4 || isNaN(year)){
+            $('#span').html('Enter valid year')
+            error = true;
+        }else if(title.length < 6){
+            $('#span').html('Enter valid Title')
+            error = true;
+        }else if(description.length <20){
+            $('#span').html('Enter valid description')
+            error = true;
+        }else if(test_num.test(description) == true){
+            $('#span').html('Phone number in description is not allowed');
+            error = true;
+        }else if(price.length<1 || isNaN(price)){
+            $('#span').html('Enter valid Price')
+            error = true;
+        }else if(image1 == ''){
+            $('#span').html('Select first image')
+            error = true;
+        }else if(img1_size > 2097152){
+            $('#span').html('first image size large')
+            error = true;
+        }else if(image2 == ''){
+            $('#span').html('Select second image')
+            error = true;
+        }else if(img2_size > 2097152){
+            $('#span').html('Second image size large')
+            error = true;
+        }else if(image3 == ''){
+            $('#span').html('Select third image')
+            error = true;
+        }else if(img3_size > 2097152){
+            $('#span').html('Third image size large')
+            error = true;
+        }else{
+            {% for category in categories %}
+                if('{{category.id}}' == category ){
+                    if('{{category.km_driven}}' == 'True'){
+                        if(km.length < 1 || isNaN(km)){
+                            $('#span').html('Enter valid KM driven')
+                            error = true;
+                        }
+                    }
+                    if('{{category.fuel}}' == 'True'){
+                        if(fuel == '0'){
+                            $('#span').html('Select fuel')
+                            error = true;
+                        }
+                    }
+                }
+            {% endfor %}
+        }
+        if(error == true){
+
+        }else{
+            document.getElementById('btn').style.display = 'none';
+            $.ajax({
+                url:'/sell-product/',
+                method:'POST',
+                data:data,
+                dataType:'json',
+                xhr: function(){
+                    const xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener('progress',e=>{
+                        console.log(e)
+                        if(e.lengthComputable){
+                            var percent = e.loaded / e.total * 100;
+                            document.getElementById('progress').style.width = percent + '%';
+                        }
+                    })
+                    return xhr
+                },
+                success:function(data){
+                    if(data=='true'){
+                        window.location.replace('/user-profile/')
+                    }
+                    if(data=='false'){
+                        $('#span').html('Your last ad is active, add after it expired')
+                    }
+                }
+            })
+        }
+        
+    })
+</script>
+<script>
+    function show_brands(hi){
+        var select = document.getElementById("brand");
+        var length = select.options.length;
+        for (i = length-1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+    //document.getElementById('km').style.display = 'none';
+    //document.getElementById('fuel').style.display = 'none';
+
+        var id = hi.value
+        var x = document.getElementById("category");
+        var option = document.createElement("option");
+        option.text = "Select brand";
+        option.value = '0';
+        select.add(option);
+        {% for brand in brands %}
+            if('{{brand.category.id}}' == id){
+                var option = document.createElement("option");
+                option.text = "{{brand.brand}}";
+                option.value = '{{brand.id}}';
+                select.add(option);
+            }
+        {% endfor %}
+        {% for category in categories %}
+        if('{{category.id}}' == hi.value){
+            if('{{category.km_driven}}' == 'True'){
+                document.getElementById('km-attribute-div').innerHTML = '<div class="col-md-6" id="km-div" ><p class="title-register-main-connection-div" style="margin-top: 2em;display:block;">Km Driven</p><input type="number" class="form-control" id="km" name="km" placeholder="Km driven" style="height: 3em; width: 20em;"></div>'
+            }else{
+                document.getElementById('km-attribute-div').innerHTML = ''
+            }
+            if('{{category.fuel}}' == 'True'){
+                document.getElementById('fuel-attribute-div').innerHTML = '<div class="col-md-6" id="fuel-div" ><p class="title-register-main-connection-div" style="margin-top: 2em;display:block;">Select fuel</p><select  id="fuel" class="form-control" style="height: 3em; width: 20em;"><option selected value="0">Select Fuel</option><option value="Petrol">Petrol</option><option value="Desel">Desel</option></select></div>'
+            }else{
+                document.getElementById('fuel-attribute-div').innerHTML = ''
+            }
+        }
+        {% endfor %}
+    }
+</script>
+
+{% endblock %}
